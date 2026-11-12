@@ -1,6 +1,6 @@
 # Shelved iOS
 
-Native SwiftUI port of the Shelved Android app. The Android repo is the source of truth for behavior and is READ-ONLY: never modify it. Android repo path: <ANDROID_REPO_PATH>. Plan: docs/PORT_PLAN.md.
+Native SwiftUI port of the Shelved Android app. The Android repo is the source of truth for behavior and is READ-ONLY: never modify it. Android repo path: ~/Developer/Apps/shelved-android (file permissions are read-only). Plan: docs/PORT_PLAN.md.
 
 ## Collaboration
 - The owner reviews every change. Keep PRs small: one slice per branch and PR.
