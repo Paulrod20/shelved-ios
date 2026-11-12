@@ -392,15 +392,15 @@ The user document is written with `merge: true`. Game documents are fully replac
 
 ## 7. Open decisions (each needs your answer before its slice)
 
-**D1. Local storage: Codable JSON file (recommended) vs SwiftData.** *Needed before slice 1.*
+**D1. Local storage: Codable JSON file (recommended) vs SwiftData.** **Decided 2026-11-12: Codable JSON file.** The SwiftData template files (`Item.swift`, template `ContentView`) are removed in slice 1.
 - JSON file (`Application Support/library.json`, atomic writes, file protection `.completeUntilFirstUserAuthentication`): mirrors Android's whole-snapshot model (`replaceLibrary`, snapshot diffs for sync), has value types end to end, makes the tests trivial, needs no migrations, and a few hundred games is only a few hundred KB. Downside: every change rewrites the file, which is fine at this size.
 - SwiftData: indexed queries, incremental writes, and good tooling. But `@Model` classes are reference types, which fights snapshot diffing and merging. It also needs a ModelContext per actor, migration plans, and heavier test setup. It adds nothing this app uses.
 
-**D2. Minimum iOS: 26.0 (recommended, matches your lean).** *Needed before slice 0.*
+**D2. Minimum iOS: 26.0 (recommended, matches your lean).** **Decided 2026-11-12: iOS 26.0 on all targets.**
 - Every Liquid Glass API, `Observations`, `tabBarMinimizeBehavior`, and `.glassProminent` is iOS 26+ (verified in the docs). There are no `#available` branches. iOS 27 is out and supports the same devices as 26 (iPhone 11+), so 26 covers both.
 - Tradeoff: excludes iOS 18 users. Given the active-device share by late 2026, that is a small group.
 
-**D3. Concurrency defaults: keep Xcode's new-project defaults (recommended).** That means Swift 6 language mode, *Default Actor Isolation = MainActor*, and *Approachable Concurrency = Yes*. UI code needs no annotations. Pure models are marked `nonisolated` and `Sendable`, and I/O lives in `actor`s. The alternative (nonisolated default) needs `@MainActor` on every view model and view, which is more boilerplate for the same safety.
+**D3. Concurrency defaults: keep Xcode's new-project defaults (recommended).** **Decided 2026-11-12: Swift 6 language mode, MainActor default isolation, Approachable Concurrency on.** That means Swift 6 language mode, *Default Actor Isolation = MainActor*, and *Approachable Concurrency = Yes*. UI code needs no annotations. Pure models are marked `nonisolated` and `Sendable`, and I/O lives in `actor`s. The alternative (nonisolated default) needs `@MainActor` on every view model and view, which is more boilerplate for the same safety.
 
 **D4. View model API: plain methods + bindable properties (recommended) vs keeping Android's `Action` enums with `send(_:)`.** Plain methods are idiomatic SwiftUI and read well at call sites (`vm.confirmDelete()`). Action enums give 1:1 diffs against Android and mirror Redux reducers. Tests port cleanly either way.
 
@@ -410,7 +410,7 @@ The user document is written with `merge: true`. Game documents are fully replac
 - (c) Accept the gap for v1 and document "use email + password to sync across devices".
 - Recommendation: (c) for v1, (a) as an Android follow-up. Also needed: handle `accountExistsWithDifferentCredential` when an Apple email matches an existing email-and-password account.
 
-**D6. Test framework: Swift Testing (recommended) vs XCTest.** It is Apple's current standard: parameterized tests, `#expect`, and async-first. Use XCTest only for UI tests, if we ever add them.
+**D6. Test framework: Swift Testing (recommended) vs XCTest.** **Decided 2026-11-12: Swift Testing (the Xcode template already uses it).** It is Apple's current standard: parameterized tests, `#expect`, and async-first. Use XCTest only for UI tests, if we ever add them.
 
 **D7. Account deletion (required for the App Store).** Guideline 5.1.1(v) requires in-app account deletion for any app that creates accounts, and Android doesn't have it. Proposal for slice 6/7: Profile → "Delete account" → reauthenticate → delete `users/{uid}/games/*` and `users/{uid}` (the rules already allow it) → revoke the Apple token → `user.delete()` → local wipe. Needs your approval, and it would ideally land on Android too.
 
