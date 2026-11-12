@@ -60,3 +60,11 @@ fastlane/report.xml
 fastlane/Preview.html
 fastlane/screenshots/**/*.png
 fastlane/test_output
+
+# Shelved
+## Firebase config: never commit (download from the Firebase console)
+GoogleService-Info.plist
+
+## Build output and macOS files
+DerivedData/
+.DS_Store
