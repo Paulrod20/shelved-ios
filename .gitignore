@@ -68,3 +68,6 @@ GoogleService-Info.plist
 ## Build output and macOS files
 DerivedData/
 .DS_Store
+
+## Private planning docs (kept local only)
+docs/
