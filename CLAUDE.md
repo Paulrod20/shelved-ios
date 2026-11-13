@@ -3,9 +3,9 @@
 Native SwiftUI port of the Shelved Android app. The Android repo is the source of truth for behavior and is READ-ONLY: never modify it. Android repo path: ~/Developer/Apps/shelved-android (file permissions are read-only). Plan: docs/PORT_PLAN.md.
 
 ## Collaboration
-- The owner reviews every change. Keep PRs small: one slice per branch and PR.
+- The owner reviews every change. Work directly on main (solo project, no feature branches or PRs). Keep commits small and focused.
 - NEVER commit, push, open a PR, or change git remotes without the owner's explicit approval in chat.
-- Modes per slice: DELEGATE (Claude implements, then gives a reading order, key concepts, and 3 check questions; the owner explains it back before merging) or GUIDED BUILD (see below). The owner may switch modes at any time.
+- Modes per slice: DELEGATE (Claude implements, then gives a reading order, key concepts, and 3 check questions; the owner explains it back before the next slice starts) or GUIDED BUILD (see below). The owner may switch modes at any time.
 - Ask before deciding anything listed under Open decisions in PORT_PLAN.md. Say so before adding any dependency.
 - Teach as you go: use the industry-standard pattern the first time, with a brief "why" and a React/TypeScript comparison where it helps.
 
@@ -42,6 +42,6 @@ Native SwiftUI port of the Shelved Android app. The Android repo is the source o
 - Do not rebuild the Android floating nav bar. Verify glass APIs against Apple's current docs and cite the pages used.
 - Support Dynamic Type, Reduce Transparency, Increase Contrast, and VoiceOver labels.
 
-## Git and PRs
-- PR description sections: Summary, Changes (bullets per file or area), Testing (checkmarks for what passed). No challenges section.
-- No AI attribution anywhere: no Co-Authored-By trailers, no "Generated with Claude Code", no session links, in commits, PRs, code comments, or docs. Commit messages are plain imperative, written as the owner.
+## Git
+- Commit messages: a short imperative subject; for larger commits, a body with one bullet per file or area and which tests passed.
+- No AI attribution anywhere: no Co-Authored-By trailers, no "Generated with Claude Code", no session links, in commits, code comments, or docs. Commit messages are plain imperative, written as the owner.
